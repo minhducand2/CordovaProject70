@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/details.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <header>
+        <h1><span class="header_color">Rental</span>Z</h1>
+    </header>
+    <div class="container">
+        <div class="showDetails" id="showDetails">
+            <h4 class="title">Property detail</h4>
+            <img src="./img/paris.jpg" id="image_property" alt="">
+            <div class="details">
+                <p><span class="label">Property: </span><span id="property"></span></p>
+                <p><span class="label">Bedroom: </span><span id="bedroom"></span></p>
+                <p><span class="label">Date: </span><span id="date"></span></p>
+                <p><span class="label">Monthly rent: </span><span id="monthly_rent"></span></p>
+                <p><span class="label">Furniture types: </span><span id="furniture_types"></span></p>
+
+                <p><span class="label">Reporter: </span><span id="reporter"></span></p>
+                <p class="note" id="note">
+
+                </p>
+            </div>
+            <div class="group_btn">
+                <button class="addNote_btn" id="btn_add_note">ADD NOTE</button>
+                <button class="addImg_btn" id="btn_add_photo">ADD PHOTO</button>
+            </div>
+        </div>
+
+        <div class="addNoteContainer" id="addNoteContainer">
+            <h4 class="title">Add note</h4>
+            <textarea name="note_input" id="note_input" placeholder="Note"></textarea>
+            <button class="addNote_btn second" id="btn_add_note_2">ADD NOTE</button>
+        </div>
+
+    </div>
+    <script src=" cordova.js "></script>
+    <script src="js/index.js "></script>
+    <script>
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        readPropertyDetailFromDatabase(id);
+        document.getElementById("btn_add_note").addEventListener("click",function() {
+            document.getElementById("addNoteContainer").style.display = "block";
+            document.getElementById("showDetails").style.display = "none";
+        });
+
+        document.getElementById("btn_add_note_2").addEventListener("click",function() {
+            addNoteToPropertyById(id, document.getElementById("note_input").value);
+        });
+
+        document.getElementById("btn_add_photo").addEventListener("click",function() {
+            onPickPhoto(id);
+        });
+    </script>
+</body>
+
+</html>

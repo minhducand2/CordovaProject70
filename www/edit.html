@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/add.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <header>
+        <h1><span class="header_color">Rental</span>Z</h1>
+    </header>
+    <div class="container">
+        <div class="content">
+            <h4 class="title">Edit property</h4>
+            <form action="">
+                <input type="text" id="property" placeholder="Property's name">
+                <input type="text" id="bedroom" placeholder="Bedroom">
+                <input type="date" name="date" placeholder="Date" id="date">
+                <input type="text" id="monthly_rent" placeholder="Monthly rent">
+                <input type="text" id="furniture_types" placeholder="Furniture types">
+                <input type="text" id="reporter" placeholder="Reporter's name">
+            </form>
+            <button class="save_btn" id="btn_save">SAVE</button>
+        </div>
+
+    </div>
+    <script src=" cordova.js "></script>
+    <script src="js/index.js "></script>
+    <script>
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        document.getElementById("property").value = url.searchParams.get("property");
+        document.getElementById("bedroom").value = url.searchParams.get("bedroom");
+        document.getElementById("date").value = url.searchParams.get("date");
+        document.getElementById("monthly_rent").value = url.searchParams.get("monthly_rent");
+        document.getElementById("furniture_types").value = url.searchParams.get("furniture_types");
+        document.getElementById("reporter").value = url.searchParams.get("reporter");
+
+        document.getElementById("btn_save").addEventListener("click",function() {
+            updateProperty(id, document.getElementById("property").value, document.getElementById("bedroom").value,document.getElementById("date").value,document.getElementById("monthly_rent").value,document.getElementById("furniture_types").value,document.getElementById("reporter").value);
+        });
+    </script>
+</body>
+</html>

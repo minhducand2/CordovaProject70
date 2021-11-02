@@ -1,0 +1,95 @@
+.container {
+    padding: 8vh 8vw 4vh 8vw;
+}
+
+input {
+    width: 100%;
+    height: 5vh;
+    border: none;
+    border-radius: 15px;
+    margin-top: 5vh;
+    box-shadow: 0px 5px 20px 0px rgb(0 0 0 / 16%), 0px 7px 20px 0 rgb(0 0 0 / 3%);
+    padding: 0px 5%;
+    color: #939393;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+}
+
+.group {
+    margin-top: 4vh;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.add_btn {
+    height: 12.8vh;
+    width: 100%;
+    margin-top: 2.5vh;
+    border-radius: 20px;
+    background-image: linear-gradient(333deg, #63E9D6, #3087C7);
+    border: none;
+    color: white;
+    font-weight: 900;
+    font-size: 2rem;
+    font-style: italic;
+    box-shadow: 0px 5px 20px 0px rgb(0 0 0 / 16%), 0px 7px 20px 0 rgb(0 0 0 / 3%);
+}
+
+.activity {
+    background-color: #fff;
+    padding: 3vh 4vw;
+    border: none;
+    border-radius: 20px;
+    margin: 4vh 0;
+    position: relative;
+    box-shadow: 0px 5px 20px 0px rgb(0 0 0 / 16%), 0px 7px 20px 0 rgb(0 0 0 / 3%);
+}
+
+.date {
+    color: #9B989B;
+}
+
+.activity_name {
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0.5vh 0;
+}
+
+.reporter {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.edit_btn,
+.delete_btn {
+    width: 25vw;
+    height: 3.7vh;
+    border: none;
+    border-radius: 20px;
+    background-color: #63E9D6;
+    color: white;
+    font-weight: 600;
+}
+
+.edit_btn {
+    background-color: #3087C7 !important;
+    margin-left: 15px;
+}
+
+.group_btn {
+    position: absolute;
+    right: 10px;
+    display: block;
+    bottom: -2vh;
+}

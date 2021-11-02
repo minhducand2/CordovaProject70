@@ -1,0 +1,1 @@
+"# CordovaProject70" 

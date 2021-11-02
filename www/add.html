@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/add.css">
+    <title>Home</title>
+	<style type="text/css">
+   input {font-weight:bold;}
+</style>
+</head>
+
+<body>
+    <header>
+        <h1><span class="header_color">Rental</span>Z</h1>
+    </header>
+    <div class="container">
+        <div class="content" id="content">
+            <h4 class="title">Add property</h4>
+            <form action="">
+                <input type="text" id="property_type" placeholder="Property type">
+                <input type="text" id="bedroom" placeholder="Bedrooms">
+				<input type="text" id="duration" placeholder="Duration">
+                <input type="date" name="dateOfActivity" id="date">
+				<input type="time" name="timeOfActivity" id="time">
+				<input type="text" id="furniture_types" placeholder="Furniture types(optional)">
+				<input type="text" id="monthly_rent_price" placeholder="Monthly rent price">
+				<input type="text" id="note" placeholder="Notes(optional)">
+                <input type="text" id="reporter" placeholder="Reporter's name">
+            </form>
+            <button class="save_btn" id="btn_save">SAVE</button>
+        </div>
+
+        <div class="showDetails" id="showDetails">
+            <h4 class="title">Add activities</h4>
+            <div class="details">
+                <p><span class="label">Property type: </span><span id="property_type_confirm">Hang out</span></p>
+                <p><span class="label">Bedrooms: </span><span id="bedroom_confirm"></span></p>
+                <p><span class="label">Date: </span><span id="date_confirm"></span></p>
+                <p><span class="label">Monthly rent price: </span><span id="monthly_rent_price_confirm"></span></p>
+				<p><span class="label">Furniture types: </span><span id="furniture_types_confirm"></span></p>
+				<p><span class="label">Notes: </span><span id="note_confirm"></span></p>
+                <p><span class="label">Reporter: </span><span id="reporter_confirm"></span></p>
+            </div>
+            <div class="group_btn">
+                <button class="edit_btn" id="btn_edit_confirm">EDIT</button>
+                <button class="home_btn" id="btn_add_property_confirm">ADD </button>
+            </div>
+        </div>
+
+    </div>
+    <script src=" cordova.js "></script>
+    <script src="js/index.js "></script>
+    <script>
+		var data = {
+			properties: [
+				{description: "Flat"},
+				{description: "House"},
+				{description: "Bungalow"},
+			],
+			bedrooms: [
+				{description: "Studio"},
+				{description: "One"},
+				{description: "Two"},
+				{description: "Three"},
+			],
+			furniture_types: [
+				{description: "Furnished"},
+				{description: "Unfurnished"},
+				{description: "Part Furnished"},
+			],
+			durations: [
+				{description: "6h"},
+				{description: "12h"},
+				{description: "24h"},
+				{description: "1 week"},
+			],
+		}
+		
+		function caculateRentPrice(properties, bedrooms, furniture_types, ducation) {
+			if (properties === '' || bedrooms === '' || ducation === '') {
+				return;
+			}
+			var a, b, c, d;
+			switch(properties) {
+				case "Flat":
+					a = 100;
+					break;
+				case "House":
+					a = 75;
+					break;
+				default:
+					a = 125;
+			}
+			
+			switch(bedrooms) {
+				case "Studio":
+					b = 1.5;
+					break;
+				case "One":
+					b = 1;
+					break;
+				case "Two":
+					b = 1.25;
+					break;
+				default:
+					b = 1.4;
+			}
+			
+			switch(ducation) {
+				case "6h":
+					d = 6;
+					break;
+				case "12h":
+					d = 12;
+					break;
+				case "24h":
+					d = 24;
+					break;
+				default:
+					d = 168;
+			}
+			
+			if(furniture_types !== '') {
+				switch(furniture_types) {
+				  case "Furnished":
+					c = 2;
+					break;
+				  case "Unfurnished":
+					c = 1;
+					break;
+				  default:
+					c = 1.25;
+				}
+			} else {
+				c = 1;
+			}
+			
+			document.getElementById("monthly_rent_price").value = a * b * c * d +  "$";
+		}
+		
+		document.getElementById("property_type").addEventListener("click",function() {
+			var config = {
+				title: "Select a property",
+				items:[
+					[data.properties]
+				],
+				positiveButtonText: "Done",
+				negativeButtonText: "Cancel"
+			};
+			window.SelectorCordovaPlugin.showSelector(config, function(result) {
+				document.getElementById("property_type").value = result[0].description;
+				caculateRentPrice(document.getElementById("property_type").value, document.getElementById("bedroom").value, document.getElementById("furniture_types").value, document.getElementById("duration").value);
+				}, function() {
+					console.log('Canceled');
+			});
+        });
+		
+		document.getElementById("bedroom").addEventListener("click",function() {
+			var config = {
+				title: "Select a bedroom",
+				items:[
+					[data.bedrooms]
+				],
+				positiveButtonText: "Done",
+				negativeButtonText: "Cancel"
+			};
+			window.SelectorCordovaPlugin.showSelector(config, function(result) {
+				document.getElementById("bedroom").value = result[0].description;
+				caculateRentPrice(document.getElementById("property_type").value, document.getElementById("bedroom").value, document.getElementById("furniture_types").value, document.getElementById("duration").value);
+				}, function() {
+					console.log('Canceled');
+			});
+        });
+		
+		document.getElementById("duration").addEventListener("click",function() {
+			var config = {
+				title: "Select a duration",
+				items:[
+					[data.durations]
+				],
+				positiveButtonText: "Done",
+				negativeButtonText: "Cancel"
+			};
+			window.SelectorCordovaPlugin.showSelector(config, function(result) {
+				document.getElementById("duration").value = result[0].description;
+				caculateRentPrice(document.getElementById("property_type").value, document.getElementById("bedroom").value, document.getElementById("furniture_types").value, document.getElementById("duration").value);
+				}, function() {
+					console.log('Canceled');
+			});
+        });
+		
+		document.getElementById("furniture_types").addEventListener("click",function() {
+			var config = {
+				title: "Select a furniture types",
+				items:[
+					[data.furniture_types]
+				],
+				positiveButtonText: "Done",
+				negativeButtonText: "Cancel"
+			};
+			window.SelectorCordovaPlugin.showSelector(config, function(result) {
+				document.getElementById("furniture_types").value = result[0].description;
+				caculateRentPrice(document.getElementById("property_type").value, document.getElementById("bedroom").value, document.getElementById("furniture_types").value, document.getElementById("duration").value);
+				}, function() {
+					console.log('Canceled');
+			});
+        });
+		
+        document.getElementById("btn_save").addEventListener("click",function() {
+			var property = document.getElementById("property_type").value;
+			var bedroom = document.getElementById("bedroom").value;
+            var date = document.getElementById("date").value;
+			var monthly_rent_price = document.getElementById("monthly_rent_price").value;
+            var reporter = document.getElementById("reporter").value;
+            if(property === '' || bedroom === '' || date === '' || monthly_rent_price === '' || reporter === '') {
+                warningEmptyFill();
+                return;
+            }
+			if (checkDuplicate(property, bedroom, date, document.getElementById("furniture_types").value)) {
+				warningEmptyFill();
+                return;
+			}
+            document.getElementById("content").style.display = "none";
+            document.getElementById("showDetails").style.display = "block";
+			
+            document.getElementById("property_type_confirm").innerHTML = document.getElementById("property_type").value;
+            document.getElementById("bedroom_confirm").innerHTML = document.getElementById("bedroom").value;
+            document.getElementById("date_confirm").innerHTML = document.getElementById("time").value + "  " + document.getElementById("date").value;
+            document.getElementById("monthly_rent_price_confirm").innerHTML =  document.getElementById("monthly_rent_price").value;
+			document.getElementById("furniture_types_confirm").innerHTML =  document.getElementById("furniture_types").value;
+			document.getElementById("note_confirm").innerHTML =  document.getElementById("note").value;
+            document.getElementById("reporter_confirm").innerHTML = document.getElementById("reporter").value;
+        });
+
+        document.getElementById("btn_edit_confirm").addEventListener("click",function() {
+            document.getElementById("content").style.display = "block";
+            document.getElementById("showDetails").style.display = "none";
+        });
+
+        document.getElementById("btn_add_property_confirm").addEventListener("click",function() {
+            var property = document.getElementById("property_type_confirm").innerHTML;
+            var bedroom = document.getElementById("bedroom_confirm").innerHTML;
+            var date = document.getElementById("date_confirm").innerHTML;
+            var monthly_rent = document.getElementById("monthly_rent_price_confirm").innerHTML;
+            var furniture_types = document.getElementById("furniture_types_confirm").innerHTML;
+            var note = document.getElementById("note_confirm").innerHTML;
+            var reporter = document.getElementById("reporter_confirm").innerHTML;
+
+            addPropertyToDatabase(property, bedroom, date, monthly_rent, furniture_types, note, reporter);
+        });
+    </script>
+</body>
+
+</html>
